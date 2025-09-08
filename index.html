@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suvrat Jain - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1A1A1A;
+            --card-bg: #1E1E1E;
+            --border-color: #41444B;
+            --text-primary: #DCDCDC;
+            --text-secondary: #A3A3A3;
+            --text-tertiary: #888888;
+            --accent-color: #8A6B4A;
+            --accent-secondary-color: #6A736B; 
+            --footer-bg: #121212;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        body.no-scroll {
+            overflow: hidden;
+        }
+        body {
+            font-family: 'General Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease-out;
+        }
+        #main-content {
+            opacity: 0;
+            transition: opacity 0.75s ease-in-out;
+        }
+        .card-bg {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-bg:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+        .navbar-glass {
+            background: rgba(26, 26, 26, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .model-canvas {
+            width: 100%;
+            height: 400px;
+            border-radius: 0.5rem;
+            cursor: grab;
+        }
+         .model-canvas:grabbing {
+            cursor: grabbing;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-color);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .accent-text {
+            color: var(--accent-color);
+        }
+        .text-tertiary {
+            color: var(--text-tertiary);
+        }
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #111111;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #9C7F60;
+        }
+        .social-link {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        .social-link:hover {
+            color: var(--accent-secondary-color);
+        }
+        .skill-tag {
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="antialiased no-scroll">
+
+    <div id="preloader">
+        <div class="text-center relative h-full w-full flex items-center justify-center">
+             <h1 class="text-4xl font-medium sm:text-5xl md:text-6xl text-center px-4">
+                Welcome to my journey in <span class="accent-text">Robotics.</span>
+            </h1>
+            <div id="swipe-indicator" class="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-sm" style="color: var(--text-secondary);">
+                <svg class="w-6 h-6 mx-auto mt-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <!-- Navigation Bar -->
+        <nav id="navbar" class="navbar-glass sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex items-center">
+                         <a href="#news" class="text-sm font-medium italic nav-link">Wanna Learn Something New?</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="#about" class="nav-link text-sm font-medium">About</a>
+                            <a href="#projects" class="nav-link text-sm font-medium">Projects</a>
+                            <a href="#resume" class="nav-link text-sm font-medium">Resume</a>
+                            <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="bg-transparent">
+            <div class="max-w-7xl mx-auto py-28 px-4 sm:px-6 lg:px-8 text-center">
+                <p class="max-w-3xl mx-auto text-xl" style="color: var(--text-secondary);">
+                    Welcome to my portfolio. Here you can follow my work and projects as I explore the intersection of mechanical design and autonomous systems.
+                </p>
+                <div class="mt-12">
+                    <a href="#projects" class="btn-primary inline-block font-semibold py-4 px-10 rounded-lg text-lg">View My Work</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- About Section -->
+            <section id="about" class="py-24 fade-in-section">
+                 <h2 class="text-3xl font-medium text-center mb-16">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center gap-16">
+                    <div class="md:w-1/3">
+                        <img src="https://placehold.co/400x400/1E1E1E/DCDCDC?text=Your+Photo" alt="Suvrat Jain" class="rounded-full mx-auto shadow-lg">
+                    </div>
+                    <div class="md:w-2/3">
+                        <p id="about-me-text" class="text-lg" style="color: var(--text-secondary);">
+                            Hello! I'm Suvrat Jain, a Mechanical Engineering student at Georgia Institute of Technology with a focus on Robotics. I have a passion for solving complex problems and have been fortunate to gain hands-on experience at Amazon Robotics and the Georgia Tech Manufacturing Institute. I enjoy the challenge of turning ideas into tangible solutions and am always looking to learn and collaborate on new projects.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-24 fade-in-section">
+                <h2 class="text-3xl font-medium text-center mb-16">My Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                    <!-- Project 1 -->
+                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+                        <div class="p-8">
+                            <h3 class="text-xl font-medium">Compact Hybrid Powerplant</h3>
+                            <p id="project-desc-1" class="mt-2" style="color: var(--text-secondary);">Engineered a 29 lb compact transmission integrating a 50 cc Honda GX50 and 4 kW BLDC motor. Delivers 34 Nm peak torque, 36-mph top speed, and extends e-bike range from 25 to 71 miles. Implemented STM32 controls for seamless mode transitions.</p>
+                        </div>
+                        <div class="px-6 mt-auto">
+                            <div id="model-container-1" class="relative">
+                                <canvas class="model-canvas"></canvas>
+                                 <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
+                             <div class="grid grid-cols-3 gap-4">
+                                <img src="https://placehold.co/600x400/333/FFF?text=Image+1" class="rounded-md" alt="Project 1 Image 1">
+                                <img src="https://placehold.co/600x400/444/FFF?text=Image+2" class="rounded-md" alt="Project 1 Image 2">
+                                <img src="https://placehold.co/600x400/555/FFF?text=Image+3" class="rounded-md" alt="Project 1 Image 3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+                         <div class="p-8">
+                            <h3 class="text-xl font-medium">Robotics Competition Robot</h3>
+                            <p id="project-desc-2" class="mt-2" style="color: var(--text-secondary);">Collaborated on a budget-constrained automated robot to place objects in an arena under 30s. Designed a linkage arm for a sub-1s task completion and used Arduino/C++ to control pneumatics, motors, and linear actuators.</p>
+                        </div>
+                        <div class="px-6 mt-auto">
+                            <div id="model-container-2" class="relative">
+                                <canvas class="model-canvas"></canvas>
+                                <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
+                            </div>
+                        </div>
+                         <div class="p-8">
+                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
+                             <div class="grid grid-cols-3 gap-4">
+                                <img src="https://placehold.co/600x400/333/FFF?text=Image+A" class="rounded-md" alt="Project 2 Image 1">
+                                <img src="https://placehold.co/600x400/444/FFF?text=Image+B" class="rounded-md" alt="Project 2 Image 2">
+                                <img src="https://placehold.co/600x400/555/FFF?text=Image+C" class="rounded-md" alt="Project 2 Image 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+                         <div class="p-8">
+                            <h3 class="text-xl font-medium">4x4 IR Controlled Car</h3>
+                            <p id="project-desc-3" class="mt-2" style="color: var(--text-secondary);">Built a proof-of-concept 4x4 car for traction control. The system automatically detected wheel slip and applied brakes, allowing navigation of difficult terrains. Utilized an STM32 microcontroller with various sensors and PID control.</p>
+                        </div>
+                        <div class="px-6 mt-auto">
+                            <div id="model-container-3" class="relative">
+                                <canvas class="model-canvas"></canvas>
+                                <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
+                            </div>
+                        </div>
+                         <div class="p-8">
+                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
+                             <div class="grid grid-cols-3 gap-4">
+                                <img src="https://placehold.co/600x400/333/FFF?text=Image+D" class="rounded-md" alt="Project 3 Image 1">
+                                <img src="https://placehold.co/600x400/444/FFF?text=Image+E" class="rounded-md" alt="Project 3 Image 2">
+                                <img src="https://placehold.co/600x400/555/FFF?text=Image+F" class="rounded-md" alt="Project 3 Image 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+                         <div class="p-8">
+                            <h3 class="text-xl font-medium">Self-Balancing Robot</h3>
+                            <p id="project-desc-4" class="mt-2" style="color: var(--text-secondary);">Designed a two-wheeled self-balancing robot with an Arduino, IMU, and encoders. Implemented two PID-based controllers for pitch and velocity, enabling the robot to move while maintaining balance.</p>
+                        </div>
+                        <div class="px-6 mt-auto">
+                            <div id="model-container-4" class="relative">
+                                <canvas class="model-canvas"></canvas>
+                                <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
+                            </div>
+                        </div>
+                         <div class="p-8">
+                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
+                             <div class="grid grid-cols-3 gap-4">
+                                <img src="https://placehold.co/600x400/333/FFF?text=Image+G" class="rounded-md" alt="Project 4 Image 1">
+                                <img src="https://placehold.co/600x400/444/FFF?text=Image+H" class="rounded-md" alt="Project 2 Image 2">
+                                <img src="https://placehold.co/600x400/555/FFF?text=Image+I" class="rounded-md" alt="Project 2 Image 3">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <!-- Resume Section -->
+            <section id="resume" class="py-24 fade-in-section">
+                <h2 class="text-3xl font-medium text-center mb-16">Resume & Experience</h2>
+                <div class="max-w-4xl mx-auto">
+                    <!-- Experience -->
+                    <div class="mb-16">
+                        <h3 class="text-2xl font-medium mb-8 border-b pb-4" style="border-color: var(--border-color);">Experience</h3>
+                        <div class="flex flex-col md:flex-row gap-8 mb-12">
+                            <div class="md:w-1/4 text-sm text-tertiary font-medium">Jan. 2023 - July 2023</div>
+                            <div class="md:w-3/4">
+                                <h4 class="text-lg font-semibold">Hardware Engineer</h4>
+                                <p class="mb-2" style="color: var(--text-secondary);">Amazon Robotics</p>
+                                <p style="color: var(--text-secondary);">Designed and optimized sensor enclosures using SolidWorks, focusing on DFM/DFA. Developed vibration damping mounts to eliminate camera failures and designed a lightweight, high-strength steel repair platform, reducing repair times by 66%.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-8 mb-12">
+                            <div class="md:w-1/4 text-sm text-tertiary font-medium">Jan. 2022 - June 2022</div>
+                            <div class="md:w-3/4">
+                                <h4 class="text-lg font-semibold">Robotics Project Engineer</h4>
+                                <p class="mb-2" style="color: var(--text-secondary);">Amazon Robotics</p>
+                                <p style="color: var(--text-secondary);">Led package automation and kickout improvement projects. Analyzed error logs and downtime to identify issues, proposing solutions that saved over $500K annually and improved efficiency.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="md:w-1/4 text-sm text-tertiary font-medium">May 2021 - Dec. 2021</div>
+                            <div class="md:w-3/4">
+                                <h4 class="text-lg font-semibold">Research Student - Nanoscale Manufacturing</h4>
+                                <p class="mb-2" style="color: var(--text-secondary);">Georgia Tech Manufacturing Institute</p>
+                                <p style="color: var(--text-secondary);">Built a slicing and motion control system using piezo-electric motors. Created a microscale mechanical ruling system capable of producing precise diffraction gratings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="mb-16">
+                        <h3 class="text-2xl font-medium mb-8 border-b pb-4" style="border-color: var(--border-color);">Education</h3>
+                         <div class="flex flex-col md:flex-row gap-8">
+                            <div class="md:w-1/4 text-sm text-tertiary font-medium">2021 - 2025</div>
+                            <div class="md:w-3/4">
+                                <h4 class="text-lg font-semibold">B.S. in Mechanical Engineering, Robotics Concentration</h4>
+                                <p class="mb-2" style="color: var(--text-secondary);">Georgia Institute of Technology, Atlanta, GA (GPA: 3.8)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div>
+                         <h3 class="text-2xl font-medium mb-8 border-b pb-4" style="border-color: var(--border-color);">Skills</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                             <div>
+                                <h4 class="text-lg font-semibold mb-4">Tools & Software</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="skill-tag">SolidWorks</span>
+                                    <span class="skill-tag">NX CAD</span>
+                                    <span class="skill-tag">FEA</span>
+                                    <span class="skill-tag">MATLAB</span>
+                                    <span class="skill-tag">Simulink</span>
+                                    <span class="skill-tag">C/C++</span>
+                                </div>
+                             </div>
+                             <div>
+                                <h4 class="text-lg font-semibold mb-4">Design & Manufacturing</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="skill-tag">GD&T</span>
+                                    <span class="skill-tag">DFM</span>
+                                    <span class="skill-tag">DFA</span>
+                                    <span class="skill-tag">Machine Design</span>
+                                    <span class="skill-tag">Static/Fatigue Failure Analysis</span>
+                                </div>
+                             </div>
+                             <div>
+                                <h4 class="text-lg font-semibold mb-4">Controls & Robotics</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="skill-tag">PID Control</span>
+                                    <span class="skill-tag">Laplace Analysis</span>
+                                    <span class="skill-tag">Frequency Response</span>
+                                    <span class="skill-tag">Kinematics</span>
+                                    <span class="skill-tag">Vibrations Analysis</span>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily News Section -->
+            <section id="news" class="py-24 fade-in-section">
+                <h2 class="text-3xl font-medium text-center mb-16">News & Updates</h2>
+                <div id="daily-news-content" class="max-w-4xl mx-auto">
+                    <!-- Daily news will be injected here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-24 text-center fade-in-section">
+                <h2 class="text-3xl font-medium mb-4">Get In Touch</h2>
+                <p class="text-lg max-w-2xl mx-auto mb-10" style="color: var(--text-secondary);">
+                    I'm currently available for new opportunities. If you have a project in mind or just want to connect, feel free to reach out.
+                </p>
+                <div class="flex justify-center items-center space-x-8 mb-12">
+                    <a href="https://www.linkedin.com/in/suvrat-jain-4262681a6/" target="_blank" title="LinkedIn" class="social-link text-xl font-semibold">
+                        LinkedIn
+                    </a>
+                </div>
+                <a href="mailto:mastersuvratjain@gmail.com" class="btn-primary inline-block font-semibold py-4 px-10 rounded-lg text-lg">
+                    mastersuvratjain@gmail.com
+                </a>
+            </section>
+        </main>
+
+        <footer class="border-t" style="background-color: var(--footer-bg); border-color: var(--border-color);">
+            <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center" style="color: var(--text-secondary);">
+                <p>&copy; 2024 Suvrat Jain. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // --- 3D Viewers ---
+        const modelPaths = [
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb',
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF-Binary/Avocado.glb',
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/MetalRoughSpheres/glTF-Binary/MetalRoughSpheres.glb',
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/GearboxAssy/glTF-Binary/GearboxAssy.glb'
+        ];
+
+        function initViewer(containerId, modelPath) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const canvas = container.querySelector('canvas');
+            const scene = new THREE.Scene();
+            
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(container.clientWidth, 400);
+
+            const camera = new THREE.PerspectiveCamera(50, container.clientWidth / 400, 0.1, 1000);
+            camera.position.set(0, 0, 5);
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 2;
+            controls.maxDistance = 10;
+            controls.target.set(0, 0, 0);
+            controls.enableZoom = true;
+
+            const ambientLight = new THREE.AmbientLight(0xDCDCDC, 1.6);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            directionalLight.position.set(5, 10, 7.5);
+            scene.add(directionalLight);
+
+            const loader = new GLTFLoader();
+            loader.load(modelPath, (gltf) => {
+                const model = gltf.scene;
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                model.position.sub(center);
+                scene.add(model);
+
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const fov = camera.fov * (Math.PI / 180);
+                let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                cameraZ *= 1.5; // zoom out a little
+                camera.position.z = cameraZ;
+                camera.lookAt(new THREE.Vector3(0,0,0));
+                controls.update();
+
+            }, undefined, (error) => {
+                console.error('An error happened', error);
+                const errorMsg = document.createElement('p');
+                errorMsg.textContent = 'Could not load 3D model.';
+                errorMsg.className = 'text-red-400 text-center';
+                container.appendChild(errorMsg);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+            
+            function onWindowResize() {
+                const width = container.clientWidth;
+                camera.aspect = width / 400;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, 400);
+            }
+            window.addEventListener('resize', onWindowResize);
+        }
+        
+        // --- Live News Fetching ---
+        function displayNewsError() {
+            const container = document.getElementById('daily-news-content');
+            if (container) {
+                container.innerHTML = `
+                    <div class="text-center py-8 card-bg rounded-lg">
+                        <p class="text-lg" style="color: var(--text-primary);">Could not load live news.</p>
+                        <p class="mt-2" style="color: var(--text-secondary);">Please check back later for the latest updates in robotics.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function fetchRoboticsNews() {
+            const container = document.getElementById('daily-news-content');
+            
+            if (container) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                        <p class="mt-4" style="color: var(--text-secondary);">Loading latest robotics news...</p>
+                    </div>
+                `;
+            }
+
+            const rssFeeds = [
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.mit.edu%2Frss%2Ftopic%2Frobotics&count=10',
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.therobotreport.com%2Ffeed%2F&count=10',
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.sciencedaily.com%2Frss%2Fcomputers_math%2Frobotics.xml&count=10'
+            ];
+
+            let allArticles = [];
+
+            for (const feedUrl of rssFeeds) {
+                try {
+                    const response = await fetch(feedUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.items && data.items.length > 0) {
+                            const articlesWithImages = data.items.filter(item => item.thumbnail && item.thumbnail.length > 0);
+                            allArticles = allArticles.concat(articlesWithImages);
+                        }
+                    }
+                } catch (error) {
+                    console.warn(`Failed to fetch from ${feedUrl}:`, error);
+                }
+            }
+
+            if (allArticles.length > 0) {
+                displayFetchedNews(allArticles);
+            } else {
+                displayNewsError();
+            }
+        }
+        
+        function getRandomRoboticsImage() {
+            const images = [
+                'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&h=400&fit=crop'
+            ];
+            return images[Math.floor(Math.random() * images.length)];
+        }
+
+        function displayFetchedNews(newsArticles) {
+            const container = document.getElementById('daily-news-content');
+            const article = newsArticles[Math.floor(Math.random() * newsArticles.length)];
+
+            container.innerHTML = `
+                <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                    <div class="md:w-1/2">
+                        <img src="${article.thumbnail}" 
+                             alt="${article.title}" 
+                             class="w-full h-full object-cover"
+                             onerror="this.onerror=null;this.src='${getRandomRoboticsImage()}'"
+                             loading="lazy">
+                    </div>
+                    <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                        <h3 class="text-2xl font-medium mb-4">${article.title}</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">${article.description?.replace(/<[^>]*>/g, '').substring(0, 180) + '...'}</p>
+                        <a href="${article.link}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="font-semibold nav-link inline-block self-start" 
+                           style="color: var(--accent-color);">Read More &rarr;</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('main-content');
+            let preloaderTimeout;
+            let preloaderHidden = false;
+
+            function hidePreloader() {
+                if (preloaderHidden) return;
+                preloaderHidden = true;
+
+                if (preloader) {
+                    preloader.style.transform = 'translateY(-100%)';
+                    preloader.style.opacity = '0';
+                    preloader.addEventListener('transitionend', () => {
+                        preloader.remove();
+                        document.body.classList.remove('no-scroll');
+                    }, { once: true });
+                }
+                if (mainContent) {
+                    mainContent.style.opacity = '1';
+                }
+                clearTimeout(preloaderTimeout);
+            }
+
+            preloaderTimeout = setTimeout(hidePreloader, 3000);
+
+            // --- Corrected Swipe/Scroll to Enter ---
+            const enterSite = () => {
+                hidePreloader();
+                // Clean up listeners to prevent them from firing again
+                window.removeEventListener('wheel', enterSite);
+                preloader.removeEventListener('touchstart', touchStart);
+                preloader.removeEventListener('touchend', touchEnd);
+            };
+
+            // For Desktop: Scroll
+            window.addEventListener('wheel', enterSite, { once: true });
+
+            // For Mobile: Swipe
+            let startY = 0;
+            const touchStart = (e) => {
+                startY = e.touches[0].clientY;
+            };
+            const touchEnd = (e) => {
+                const endY = e.changedTouches[0].clientY;
+                if (startY - endY > 50) { // Swipe up
+                    enterSite();
+                }
+            };
+            preloader.addEventListener('touchstart', touchStart, { passive: true });
+            preloader.addEventListener('touchend', touchEnd, { passive: true });
+
+            fetchRoboticsNews(); 
+
+            initViewer('model-container-1', modelPaths[0]);
+            initViewer('model-container-2', modelPaths[1]);
+            initViewer('model-container-3', modelPaths[2]);
+            initViewer('model-container-4', modelPaths[3]);
+
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
