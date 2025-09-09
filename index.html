@@ -75,6 +75,8 @@
             height: 400px;
             border-radius: 0.5rem;
             cursor: grab;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
         }
          .model-canvas:grabbing {
             cursor: grabbing;
@@ -217,6 +219,9 @@
                         </div>
                         <div class="px-6 mt-auto">
                             <div id="model-container-1" class="relative">
+                                <div class="model-loader absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-lg">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
                                 <canvas class="model-canvas"></canvas>
                                  <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
                             </div>
@@ -239,6 +244,9 @@
                         </div>
                         <div class="px-6 mt-auto">
                             <div id="model-container-2" class="relative">
+                                <div class="model-loader absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-lg">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
                                 <canvas class="model-canvas"></canvas>
                                 <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
                             </div>
@@ -261,6 +269,9 @@
                         </div>
                         <div class="px-6 mt-auto">
                             <div id="model-container-3" class="relative">
+                                <div class="model-loader absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-lg">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
                                 <canvas class="model-canvas"></canvas>
                                 <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
                             </div>
@@ -283,6 +294,9 @@
                         </div>
                         <div class="px-6 mt-auto">
                             <div id="model-container-4" class="relative">
+                                <div class="model-loader absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-lg">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
                                 <canvas class="model-canvas"></canvas>
                                 <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
                             </div>
@@ -435,6 +449,7 @@
             if (!container) return;
 
             const canvas = container.querySelector('canvas');
+            const loaderElement = container.querySelector('.model-loader');
             const scene = new THREE.Scene();
             
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
@@ -476,12 +491,18 @@
                 camera.lookAt(new THREE.Vector3(0,0,0));
                 controls.update();
 
+                if (loaderElement) loaderElement.style.display = 'none';
+                canvas.style.opacity = 1;
+
             }, undefined, (error) => {
                 console.error('An error happened', error);
-                const errorMsg = document.createElement('p');
-                errorMsg.textContent = 'Could not load 3D model.';
-                errorMsg.className = 'text-red-400 text-center';
-                container.appendChild(errorMsg);
+                if (loaderElement) {
+                    const errorMsg = document.createElement('p');
+                    errorMsg.textContent = 'Could not load 3D model.';
+                    errorMsg.className = 'text-red-400 text-center';
+                    loaderElement.innerHTML = '';
+                    loaderElement.appendChild(errorMsg);
+                }
             });
 
             function animate() {
@@ -600,6 +621,7 @@
                 preloaderHidden = true;
 
                 if (preloader) {
+                    preloader.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease-out';
                     preloader.style.transform = 'translateY(-100%)';
                     preloader.style.opacity = '0';
                     preloader.addEventListener('transitionend', () => {
@@ -618,23 +640,19 @@
             // --- Corrected Swipe/Scroll to Enter ---
             const enterSite = () => {
                 hidePreloader();
-                // Clean up listeners to prevent them from firing again
                 window.removeEventListener('wheel', enterSite);
                 preloader.removeEventListener('touchstart', touchStart);
                 preloader.removeEventListener('touchend', touchEnd);
             };
-
-            // For Desktop: Scroll
             window.addEventListener('wheel', enterSite, { once: true });
 
-            // For Mobile: Swipe
             let startY = 0;
             const touchStart = (e) => {
                 startY = e.touches[0].clientY;
             };
             const touchEnd = (e) => {
                 const endY = e.changedTouches[0].clientY;
-                if (startY - endY > 50) { // Swipe up
+                if (startY - endY > 50) { 
                     enterSite();
                 }
             };
@@ -665,15 +683,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
