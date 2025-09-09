@@ -50,7 +50,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease-out;
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
         }
         #main-content {
             opacity: 0;
@@ -196,11 +196,11 @@
                  <h2 class="text-3xl font-medium text-center mb-16">About Me</h2>
                 <div class="flex flex-col md:flex-row items-center gap-16">
                     <div class="md:w-1/3">
-                        <img src="https://raw.githubusercontent.com/suvratjain-great/suvratjain-great.github.io/main/sjimg.jpg">
+                        <img src="https://raw.githubusercontent.com/suvratjain-great/suvratjain-great.github.io/main/sjimg.jpg" alt="Suvrat Jain" class="rounded-full mx-auto shadow-lg">
                     </div>
                     <div class="md:w-2/3">
                         <p id="about-me-text" class="text-lg" style="color: var(--text-secondary);">
-                            Hello! I'm Suvrat Jain, a Mechanical Engineering student at Georgia Institute of Technology with a focus on Robotics. I have a passion for solving complex problems and have been fortunate to gain hands-on experience at Amazon Robotics and the Georgia Tech Manufacturing Institute. I enjoy the challenge of turning ideas into tangible solutions and am always looking to learn and collaborate on new projects.
+                            Hello! I'm Suvrat Jain, a mechanical engineering graduate now pursuing my Master's with a focus on robotics. My curiosity for how machines perceive and interact with the world has led me to my current research on robotic "eyeballs" at the Safe Robotics Lab. I'm always exploring new ideas for personal projects, from a solar tracking system for panels to—as a coffee nerd—improving the user experience of coffee grinders. Outside of engineering, I enjoy playing volleyball, climbing, training, and diving deep into the complexities of a great cup of coffee.
                         </p>
                     </div>
                 </div>
@@ -227,11 +227,19 @@
                             </div>
                         </div>
                         <div class="p-8">
-                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
-                             <div class="grid grid-cols-3 gap-4">
-                                <img src="https://placehold.co/600x400/333/FFF?text=Image+1" class="rounded-md" alt="Project 1 Image 1">
-                                <img src="https://placehold.co/600x400/444/FFF?text=Image+2" class="rounded-md" alt="Project 1 Image 2">
-                                <img src="https://placehold.co/600x400/555/FFF?text=Image+3" class="rounded-md" alt="Project 1 Image 3">
+                            <div class="relative gallery-container overflow-hidden rounded-md h-64">
+                                <div class="gallery-track flex h-full transition-transform duration-300 ease-in-out">
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/333/FFF?text=Project+1+Image+1" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/444/FFF?text=Project+1+Image+2" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full bg-black flex items-center justify-center text-white">
+                                        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                            <source src="https://assets.mixkit.co/videos/preview/mixkit-robotic-arm-working-in-a-factory-42211-large.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                                <button class="gallery-next-btn absolute top-1/2 right-2 -translate-y-1/2 flex items-center text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity z-10">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -252,11 +260,14 @@
                             </div>
                         </div>
                          <div class="p-8">
-                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
-                             <div class="grid grid-cols-3 gap-4">
-                                <img src="https://placehold.co/600x400/333/FFF?text=Image+A" class="rounded-md" alt="Project 2 Image 1">
-                                <img src="https://placehold.co/600x400/444/FFF?text=Image+B" class="rounded-md" alt="Project 2 Image 2">
-                                <img src="https://placehold.co/600x400/555/FFF?text=Image+C" class="rounded-md" alt="Project 2 Image 3">
+                            <div class="relative gallery-container overflow-hidden rounded-md h-64">
+                                <div class="gallery-track flex h-full transition-transform duration-300 ease-in-out">
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/333/FFF?text=Project+2+Image+1" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/444/FFF?text=Project+2+Image+2" class="w-full h-full object-cover"></div>
+                                </div>
+                                <button class="gallery-next-btn absolute top-1/2 right-2 -translate-y-1/2 flex items-center text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity z-10">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -277,11 +288,19 @@
                             </div>
                         </div>
                          <div class="p-8">
-                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
-                             <div class="grid grid-cols-3 gap-4">
-                                <img src="https://placehold.co/600x400/333/FFF?text=Image+D" class="rounded-md" alt="Project 3 Image 1">
-                                <img src="https://placehold.co/600x400/444/FFF?text=Image+E" class="rounded-md" alt="Project 3 Image 2">
-                                <img src="https://placehold.co/600x400/555/FFF?text=Image+F" class="rounded-md" alt="Project 3 Image 3">
+                            <div class="relative gallery-container overflow-hidden rounded-md h-64">
+                                <div class="gallery-track flex h-full transition-transform duration-300 ease-in-out">
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/333/FFF?text=Project+3+Image+1" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/444/FFF?text=Project+3+Image+2" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full bg-black flex items-center justify-center text-white">
+                                        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-biorobotic-hand-42210-large.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                                <button class="gallery-next-btn absolute top-1/2 right-2 -translate-y-1/2 flex items-center text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity z-10">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -302,11 +321,14 @@
                             </div>
                         </div>
                          <div class="p-8">
-                             <h4 class="text-lg font-medium mb-4 text-tertiary">Gallery</h4>
-                             <div class="grid grid-cols-3 gap-4">
-                                <img src="https://placehold.co/600x400/333/FFF?text=Image+G" class="rounded-md" alt="Project 4 Image 1">
-                                <img src="https://placehold.co/600x400/444/FFF?text=Image+H" class="rounded-md" alt="Project 2 Image 2">
-                                <img src="https://placehold.co/600x400/555/FFF?text=Image+I" class="rounded-md" alt="Project 2 Image 3">
+                            <div class="relative gallery-container overflow-hidden rounded-md h-64">
+                                <div class="gallery-track flex h-full transition-transform duration-300 ease-in-out">
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/333/FFF?text=Project+4+Image+1" class="w-full h-full object-cover"></div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full"><img src="https://placehold.co/600x400/444/FFF?text=Project+4+Image+2" class="w-full h-full object-cover"></div>
+                                </div>
+                                <button class="gallery-next-btn absolute top-1/2 right-2 -translate-y-1/2 flex items-center text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity z-10">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -490,7 +512,7 @@
                 camera.position.z = cameraZ;
                 camera.lookAt(new THREE.Vector3(0,0,0));
                 controls.update();
-
+                
                 if (loaderElement) loaderElement.style.display = 'none';
                 canvas.style.opacity = 1;
 
@@ -621,7 +643,6 @@
                 preloaderHidden = true;
 
                 if (preloader) {
-                    preloader.style.transition = 'transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease-out';
                     preloader.style.transform = 'translateY(-100%)';
                     preloader.style.opacity = '0';
                     preloader.addEventListener('transitionend', () => {
@@ -641,8 +662,8 @@
             const enterSite = () => {
                 hidePreloader();
                 window.removeEventListener('wheel', enterSite);
-                preloader.removeEventListener('touchstart', touchStart);
-                preloader.removeEventListener('touchend', touchEnd);
+                window.removeEventListener('touchstart', touchStart);
+                window.removeEventListener('touchend', touchEnd);
             };
             window.addEventListener('wheel', enterSite, { once: true });
 
@@ -656,8 +677,9 @@
                     enterSite();
                 }
             };
-            preloader.addEventListener('touchstart', touchStart, { passive: true });
-            preloader.addEventListener('touchend', touchEnd, { passive: true });
+            window.addEventListener('touchstart', touchStart, { passive: true });
+            window.addEventListener('touchend', touchEnd, { passive: true });
+
 
             fetchRoboticsNews(); 
 
@@ -679,9 +701,41 @@
             sections.forEach(section => {
                 observer.observe(section);
             });
+            
+            // --- Gallery Click Functionality ---
+            function setupGallery(container) {
+                const track = container.querySelector('.gallery-track');
+                const nextBtn = container.querySelector('.gallery-next-btn');
+                if (!track || !nextBtn) return;
+
+                const items = track.querySelectorAll('.gallery-item');
+                if (items.length <= 1) {
+                    nextBtn.style.display = 'none';
+                    return;
+                }
+
+                let currentIndex = 0;
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % items.length;
+                    const itemWidth = container.offsetWidth;
+                    track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+                });
+                
+                // Adjust on resize
+                window.addEventListener('resize', () => {
+                    const newItemWidth = container.offsetWidth;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(-${currentIndex * newItemWidth}px)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.3s ease-in-out';
+                    }, 50)
+                });
+            }
+
+            document.querySelectorAll('.gallery-container').forEach(setupGallery);
         });
     </script>
 </body>
 </html>
-
 
