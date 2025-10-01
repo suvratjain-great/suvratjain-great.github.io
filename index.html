@@ -357,7 +357,22 @@
                             </div>
                         </div>
                     </div>
-
+<!-- Project 5 -->
+<div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+    <div class="p-8">
+        <h3 class="text-xl font-medium">3-RRR Spherical Parallel Manipulator</h3>
+        <p id="project-desc-5" class="mt-2" style="color: var(--text-secondary);">Designed a 3-DOF spherical parallel manipulator for robotic vision applications.</p>
+    </div>
+    <div class="p-8">
+        <div id="model-container-5" class="relative">
+            <div class="model-loader absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-lg">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            </div>
+            <canvas class="model-canvas"></canvas>
+            <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">Click & Drag to Rotate</div>
+        </div>
+    </div>
+</div>
                 </div>
             </section>
             
@@ -495,13 +510,13 @@
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
         // --- 3D Viewers ---
-        const modelPaths = [
-            'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Hybrid_Engine.glb',
-            'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/MainAssembly2110.glb',
-            'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Car_assembly_vol1.glb',
-            'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/robassemb.glb'
-            'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/3RRRSPM.glb'
-        ];
+const modelPaths = [
+    'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Hybrid_Engine.glb',
+    'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/MainAssembly2110.glb',
+    'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Car_assembly_vol1.glb',
+    'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/robassemb.glb',
+    'https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/3RRRSPM.glb'
+];
 
         function initViewer(containerId, modelPath) {
             const container = document.getElementById(containerId);
@@ -724,6 +739,7 @@
             initViewer('model-container-2', modelPaths[1]);
             initViewer('model-container-3', modelPaths[2]);
             initViewer('model-container-4', modelPaths[3]);
+            initViewer('model-container-5', modelPaths[4]);
 
             const sections = document.querySelectorAll('.fade-in-section');
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
@@ -775,6 +791,7 @@
     </script>
 </body>
 </html>
+
 
 
 
