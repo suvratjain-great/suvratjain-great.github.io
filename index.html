@@ -29,20 +29,19 @@
         }
 
         html { scroll-behavior: smooth; }
-        body.no-scroll { overflow: hidden; }
         body {
             font-family: 'General Sans', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
         }
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-color);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000;
-            transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.6s ease;
+        
+        /* Preloader removed */
+
+        #main-content { 
+            /* Opacity transition removed for instant load */
+            opacity: 1; 
         }
-        #main-content { opacity: 0; transition: opacity 0.75s ease-in-out; }
+        
         .card-bg {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -141,19 +140,9 @@
         }
     </style>
 </head>
-<body class="antialiased no-scroll">
+<body class="antialiased">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="text-center relative h-full w-full flex items-center justify-center flex-col">
-             <h1 class="text-3xl md:text-5xl font-medium text-center px-4 leading-tight">
-                Welcome to my journey in <span class="accent-text">Robotics.</span>
-            </h1>
-            <div id="swipe-indicator" class="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-sm" style="color: var(--text-secondary);">
-                <svg class="w-6 h-6 mx-auto mt-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-            </div>
-        </div>
-    </div>
+    <!-- Preloader Removed -->
 
     <div id="main-content">
         <!-- Navigation Bar -->
@@ -401,7 +390,8 @@
             <section id="resume" class="py-16 md:py-24 fade-in-section">
                 <h2 class="text-3xl font-medium text-center mb-8">Resume & Experience</h2>
                 <div class="text-center mb-12">
-                     <a href="#" download class="btn-primary inline-flex items-center gap-2 font-medium py-2 px-4 rounded text-sm transition-transform hover:scale-105">
+                     <!-- LINK UPDATED HERE -->
+                     <a href="Resume Suvrat Jain Dec1.pdf" download="Suvrat_Jain_Resume.pdf" class="btn-primary inline-flex items-center gap-2 font-medium py-2 px-4 rounded text-sm transition-transform hover:scale-105">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Download Resume
                      </a>
@@ -639,48 +629,7 @@
         });
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Smooth Entry
-            const preloader = document.getElementById('preloader');
-            const mainContent = document.getElementById('main-content');
-            let preloaderHidden = false;
-
-            function hidePreloader() {
-                if (preloaderHidden) return;
-                preloaderHidden = true;
-
-                if (preloader) {
-                    preloader.style.transform = 'translateY(-100%)';
-                    preloader.style.opacity = '0';
-                    setTimeout(() => preloader.remove(), 600);
-                }
-                document.body.classList.remove('no-scroll');
-                if (mainContent) mainContent.style.opacity = '1';
-            }
-
-            // Fallback timeout
-            setTimeout(hidePreloader, 3000);
-
-            // Corrected Swipe/Scroll to Enter (from original code)
-            const enterSite = () => {
-                hidePreloader();
-                window.removeEventListener('wheel', enterSite);
-                window.removeEventListener('touchstart', touchStart);
-                window.removeEventListener('touchend', touchEnd);
-            };
-            window.addEventListener('wheel', enterSite, { once: true });
-
-            let startY = 0;
-            const touchStart = (e) => {
-                startY = e.touches[0].clientY;
-            };
-            const touchEnd = (e) => {
-                const endY = e.changedTouches[0].clientY;
-                if (startY - endY > 50) { 
-                    enterSite();
-                }
-            };
-            window.addEventListener('touchstart', touchStart, { passive: true });
-            window.addEventListener('touchend', touchEnd, { passive: true });
+            // Smooth Entry Removed
 
             // Intersection Observer for Fade-in
             const observer = new IntersectionObserver((entries) => {
