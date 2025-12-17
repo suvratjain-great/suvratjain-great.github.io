@@ -265,7 +265,7 @@
                 <h2 class="text-3xl font-medium text-center mb-16">My Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                    <!-- Project 1 (Retains Read More) -->
+                    <!-- Project 1 (Retains Read More and 3D Model) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Compact Hybrid Powerplant</h3>
@@ -305,25 +305,37 @@
                         </div>
                     </div>
 
-                    <!-- Project 6: Asymmetric Stereo Camera (Eyeballs) (Moved to Project 2's position) -->
+                    <!-- Project 6: Asymmetric Stereo Camera (Eyeballs) (Retains Read More, No 3D Model) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Project Eyeball</h3>
-                            <p id="project-desc-6" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">This project explores an active stereo vision system inspired by human foveation to obtain accurate depth estimates for a region of interest without relying on expensive LiDAR or RGB-D cameras. Implements vergence control depth estimation using dual 2-DOF gimbals.</p>
+                            <p id="project-desc-6" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Developed an asymmetric stereo camera system simulating human foveation to acquire accurate depth information. Implements vergence control depth estimation for dual 2-DOF gimbals.</p>
                             <button onclick="openProjectModal(6)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
-                        <div class="px-6 pb-6 md:px-8 md:pb-8">
-                            <div id="model-container-6" class="model-container" data-model="placeholder">
-                                <div class="load-model-overlay bg-gray-800 flex flex-col items-center justify-center text-center">
-                                    <svg class="w-10 h-10 mb-2" style="color: var(--accent-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    <span class="text-white font-medium text-sm">Robotic Vision Project</span>
+                        <div class="p-6 md:p-8">
+                             <!-- Gallery for Project 6 (Eyeball) -->
+                             <div class="relative gallery-container overflow-hidden rounded-md">
+                                <div class="gallery-track flex h-full transition-transform duration-300 ease-in-out">
+                                    <div class="gallery-item w-full flex-shrink-0 h-full">
+                                        <!-- Placeholder Image 1 for Project 6 -->
+                                        <img src="https://raw.githubusercontent.com/suvratjain-great/suvratjain-great.github.io/main/vision_img.jpeg" class="w-full h-full object-cover" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item w-full flex-shrink-0 h-full bg-black flex items-center justify-center">
+                                        <!-- Placeholder Video 1 for Project 6 -->
+                                        <video class="w-full h-full object-cover" autoplay loop muted controls playsinline>
+                                            <source src="https://files.catbox.moe/example_placeholder_video.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
                                 </div>
-                                <canvas class="model-canvas hidden"></canvas> 
+                                <button class="gallery-next-btn absolute top-1/2 right-2 -translate-y-1/2 flex items-center text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity z-10">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Project 2 (Moved to Project 3's position) -->
+                    <!-- Project 2 (Robotics Competition Robot) - REVERTED TO ORIGINAL STATE WITH 3D MODEL -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Robotics Competition Robot</h3>
@@ -356,7 +368,7 @@
                         </div>
                     </div>
                     
-                    <!-- Project 3 (Moved to Project 4's position) -->
+                    <!-- Project 3 (Read More Removed) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">4x4 IR Controlled Car</h3>
@@ -389,7 +401,7 @@
                         </div>
                     </div>
                     
-                    <!-- Project 4 (Moved to Project 5's position) -->
+                    <!-- Project 4 (Read More Removed) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Self-Balancing Robot</h3>
@@ -422,7 +434,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 5 (Moved to Project 6's position) -->
+                    <!-- Project 5 (Read More Removed) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">3-RRR Spherical Parallel Manipulator</h3>
@@ -813,4 +825,3 @@
     </script>
 </body>
 </html>
-
