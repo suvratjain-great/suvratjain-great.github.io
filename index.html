@@ -577,46 +577,6 @@
                     <h4 class="text-xl font-bold text-white mt-6 mb-3">Mechatronics/Controls Challenges and Decisions</h4>
                     <p class="mb-4">On the controls side, I had a huge responsibility as it was important to run the whole system electronically. I worked systematically and I started by just trying to run the motor. Getting it running required a lot of debugging with the microcontroller and motor controller using UART communication. I had to learn about serial communication and look at code bases to learn more about it and how to make it work. Once operational, accurate speed feedback became the next challenge. Although the firmware was functioning, the speed data was wildly incorrect due to noisy sensor signals (orders of magnitude errors). After extensive debugging, I almost wanted to quit but I returned to fundamentals. I used an oscilloscope to inspect the raw signals, discovering that electrical noise was corrupting the measurements because of which the microcontroller was getting confused. The solution was using just a simple capacitor as it smooths out the ripples. It cleaned the signal and resolved the issue.</p>
                 `
-            },
-            2: {
-                title: "Robotics Competition Robot",
-                content: `
-                    <p class="mb-4">Collaborated on a budget-constrained automated robot to place objects in an arena under 30s. Designed a linkage arm for a sub-1s task completion and used Arduino/C++ to control pneumatics, motors, and linear actuators.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
-                    <p class="mb-4">With a budget of only $100, we had to build a robot capable of autonomous navigation and precise object manipulation. The biggest hurdle was the time constraint: we had 30 seconds to complete the entire course.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
-                    <p class="mb-4">I focused on speed. Instead of a complex multi-joint arm, I designed a specialized 4-bar linkage mechanism driven by high-torque servos. This allowed the robot to grab and dump the game objects in under 1 second, giving us a massive time advantage over teams using slower linear actuators.</p>
-                `
-            },
-            3: {
-                title: "4x4 IR Controlled Car",
-                content: `
-                    <p class="mb-4">Built a proof-of-concept 4x4 car for traction control. The system automatically detected wheel slip and applied brakes, allowing navigation of difficult terrains. Utilized an STM32 microcontroller with various sensors and PID control.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
-                    <p class="mb-4">Simulating traction control on a small scale requires incredibly fast sensor feedback. Standard hobby motors often lack the encoder resolution needed to detect micro-slips before the car loses traction completely.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
-                    <p class="mb-4">I implemented a custom PID control loop on an STM32 chip. By comparing the expected speed (from throttle input) vs. actual wheel speed (from encoders) every few milliseconds, the system could detect slip almost instantly. It would then pulse the brakes on the slipping wheel, transferring torque to the wheels with grip—mimicking a real car's limited-slip differential.</p>
-                `
-            },
-            4: {
-                title: "Self-Balancing Robot",
-                content: `
-                    <p class="mb-4">Designed a two-wheeled self-balancing robot with an Arduino, IMU, and encoders. Implemented two PID-based controllers for pitch and velocity, enabling the robot to move while maintaining balance.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
-                    <p class="mb-4">A classic inverted pendulum problem. The difficulty lies in tuning the PID controller. If the response is too aggressive, the robot oscillates and falls. If it's too slow, it can't recover from a push.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
-                    <p class="mb-4">I used a cascade control system. The inner loop controlled the pitch (balance) running at a very high frequency, while the outer loop controlled the velocity (position). This decoupling allowed the robot to lean forward to accelerate without falling over.</p>
-                `
-            },
-            5: {
-                title: "3-RRR Spherical Parallel Manipulator",
-                content: `
-                    <p class="mb-4">Designed a 3-DOF spherical parallel manipulator for robotic vision applications.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
-                    <p class="mb-4">Parallel manipulators are notorious for their complex kinematics. Unlike serial arms, the movement of one actuator affects the position of the entire end-effector in non-intuitive ways.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
-                    <p class="mb-4">I modeled the entire system in MATLAB before cutting a single piece of metal. By solving the inverse kinematics equations first, I could optimize the link lengths to maximize the workspace and avoid singularity points where the robot would lock up.</p>
-                `
             }
         };
 
@@ -783,6 +743,7 @@
     </script>
 </body>
 </html>
+
 
 
 
