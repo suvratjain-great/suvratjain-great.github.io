@@ -277,7 +277,7 @@
                             <div id="model-container-1" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Hybrid_Engine.glb">
                                 <div class="load-model-overlay">
                                     <div class="text-white text-3xl mb-2">↻</div>
-                                    <span class="text-white font-medium bg-black bg-opacity-50 px-3 py-1 rounded">Load 3D Model (15MB)</span>
+                                    <span class="text-white font-medium bg-black bg-opacity-50 px-3 py-1 rounded">Load 3D Model</span>
                                 </div>
                                 <canvas class="model-canvas"></canvas>
                             </div>
@@ -305,7 +305,25 @@
                         </div>
                     </div>
 
-                    <!-- Project 2 (Read More Removed) -->
+                    <!-- Project 6: Asymmetric Stereo Camera (Eyeballs) (Moved to Project 2's position) -->
+                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl font-medium">Project Eyeball</h3>
+                            <p id="project-desc-6" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">This project explores an active stereo vision system inspired by human foveation to obtain accurate depth estimates for a region of interest without relying on expensive LiDAR or RGB-D cameras. Implements vergence control depth estimation using dual 2-DOF gimbals.</p>
+                            <button onclick="openProjectModal(6)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
+                        </div>
+                        <div class="px-6 pb-6 md:px-8 md:pb-8">
+                            <div id="model-container-6" class="model-container" data-model="placeholder">
+                                <div class="load-model-overlay bg-gray-800 flex flex-col items-center justify-center text-center">
+                                    <svg class="w-10 h-10 mb-2" style="color: var(--accent-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    <span class="text-white font-medium text-sm">Robotic Vision Project</span>
+                                </div>
+                                <canvas class="model-canvas hidden"></canvas> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 (Moved to Project 3's position) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Robotics Competition Robot</h3>
@@ -338,7 +356,7 @@
                         </div>
                     </div>
                     
-                    <!-- Project 3 (Read More Removed) -->
+                    <!-- Project 3 (Moved to Project 4's position) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">4x4 IR Controlled Car</h3>
@@ -371,7 +389,7 @@
                         </div>
                     </div>
                     
-                    <!-- Project 4 (Read More Removed) -->
+                    <!-- Project 4 (Moved to Project 5's position) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Self-Balancing Robot</h3>
@@ -404,7 +422,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 5 (Read More Removed) -->
+                    <!-- Project 5 (Moved to Project 6's position) -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">3-RRR Spherical Parallel Manipulator</h3>
@@ -418,24 +436,6 @@
                                     <span class="text-white font-medium bg-black bg-opacity-50 px-3 py-1 rounded">Load 3D Model</span>
                                 </div>
                                 <canvas class="model-canvas"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 6: Asymmetric Stereo Camera (Eyeballs) (Retains Read More) -->
-                    <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
-                        <div class="p-6 md:p-8">
-                            <h3 class="text-xl font-medium">Project Eyeball</h3>
-                            <p id="project-desc-6" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">This project explores an active stereo vision system inspired by human foveation to obtain accurate depth estimates for a region of interest without relying on expensive LiDAR or RGB-D cameras. Implements vergence control depth estimation using dual 2-DOF gimbals.</p>
-                            <button onclick="openProjectModal(6)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
-                        </div>
-                        <div class="px-6 pb-6 md:px-8 md:pb-8">
-                            <div id="model-container-6" class="model-container" data-model="placeholder">
-                                <div class="load-model-overlay bg-gray-800 flex flex-col items-center justify-center text-center">
-                                    <svg class="w-10 h-10 mb-2" style="color: var(--accent-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    <span class="text-white font-medium text-sm">Robotic Vision Project</span>
-                                </div>
-                                <canvas class="model-canvas hidden"></canvas> 
                             </div>
                         </div>
                     </div>
@@ -637,7 +637,7 @@
                 `
             },
             6: {
-                title: "Project Eyeball",
+                title: "Asymmetric Stereo Camera (Project Eyeball)",
                 content: `
                     <p class="mb-4">This project implements a biomimetic active vision system that mimics human foveation to estimate depth for a region of interest in real time without LiDAR or RGB-D cameras. Instead of dense pixel disparity, the system physically rotates two independently actuated cameras on 2-DOF gimbals to converge on a detected target (via YOLOv8), and computes depth directly from motor angles using vergence geometry. A Teensy 4.0 handles low-latency motor control and sensing, while calibration, outlier rejection, and Kalman filtering stabilize depth estimates for moving objects, demonstrating accurate, low-compute depth perception driven by mechanical control rather than heavy vision processing .</p>
                     <h4 class="text-xl font-bold text-white mt-6 mb-3">Future work</h4>
