@@ -277,7 +277,7 @@
                             <div id="model-container-1" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Hybrid_Engine.glb">
                                 <div class="load-model-overlay">
                                     <div class="text-white text-3xl mb-2">↻</div>
-                                    <span class="text-white font-medium bg-black bg-opacity-50 px-3 py-1 rounded">Load 3D Model (15MB)</span>
+                                    <span class="text-white font-medium bg-black bg-opacity-50 px-3 py-1 rounded">Load 3D Model</span>
                                 </div>
                                 <canvas class="model-canvas"></canvas>
                             </div>
@@ -568,10 +568,12 @@
                 title: "Compact Hybrid Powerplant",
                 content: `
                     <p class="mb-4">Engineered a 29 lb compact transmission integrating a 50 cc Honda GX50 and 4 kW BLDC motor. Delivers 34 Nm peak torque, 36-mph top speed, and extends e-bike range from 25 to 71 miles. Implemented STM32 controls for seamless mode transitions.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
-                    <p class="mb-4">Integrating a combustion engine and an electric motor into a single, compact transmission unit for a standard bicycle frame is no small feat. We had to manage heat dissipation from the 4kW motor while ensuring the transmission box remained light enough (under 30 lbs) to not throw off the bike's center of gravity.</p>
-                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
-                    <p class="mb-4">I designed a custom cone-clutch mechanism that allows the rider to switch seamlessly between gas, electric, and hybrid modes. By using an STM32 microcontroller, I was able to implement a custom control algorithm that reads Hall sensor data to match the engine RPM with the motor speed before engaging the clutch, preventing the jerky transitions common in DIY hybrid builds.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">Mechanical Challenges</h4>
+                    <p class="mb-4">One of the main challenges was keeping the powertrain compact and lightweight while matching/increasing the performance of a full e-bike system (battery, motor, and electronics combined). Reducing weight directly impacted strength and reliability, so it became critical to define clear engineering metrics for the whole system such as required torque and power early on. Although I initially underestimated motor selection, it quickly became a central challenge since all requirements (like Kv, torque, current, outrunner vs inrunner, etc) and calculations had to be fully defined and validated before purchasing any components. Packaging, transmission layout, gear ratios, reliability, and cost were all tightly coupled, making it difficult to converge on a single design direction.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">Solutions</h4>
+                    <p class="mb-4">To address this, I learned motor dynamics in depth motor dynamics in depth. I derived torque and power curves, relating them to current requirements and electronics limits. These calculations directly drove mechanical sizing, material choices and designing components to meet reliability targets with a reasonable factor of safety. This was highly important as these requirements and calculations had to be well defined without buying anything. I was able to make the system light by choosing frame components to be aluminum and keeping the crucial components to be made from steel while keeping the required reliability. The mechanical design went through multiple iterations as packaging, transmission layout, and cost constraints evolved. 
+For the transmission layout like how the components are arranged for optimal space, gear ratio and reliability, it was again hard to settle on a single design choice. After evaluating gears, sprockets, pulleys, belts, chains, and looking at designs of car hybrids like the prius, I settled on a vertical layout using pulleys with a belt looped around them due to their reasonable cost, high efficiency (~99%), and ability to transmit power without slip, validating the final design through calculations and simulations. Managing bidirectional power flow added another layer of complexity as sometimes the engine had to be disengaged from the power output. To match appropriate cost, I proposed using a mini custom cone clutch, with a pully on it to allow the power flow. This was again validated for reliability with strength and fatigue analyses. I learned about motors, how to work with complex designs, and most importantly how setting requirements (both customer and engineering) is so crucial.
+</p>
                 `
             },
             2: {
@@ -779,3 +781,4 @@
     </script>
 </body>
 </html>
+
