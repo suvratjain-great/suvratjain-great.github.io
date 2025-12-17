@@ -35,10 +35,7 @@
             color: var(--text-primary);
         }
         
-        /* Preloader removed */
-
         #main-content { 
-            /* Opacity transition removed for instant load */
             opacity: 1; 
         }
         
@@ -138,11 +135,60 @@
         @media (min-width: 768px) {
             .gallery-container { height: 32rem; /* Desktop */ }
         }
+
+        /* Modal Styles */
+        #project-modal {
+            position: fixed; inset: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #project-modal.open {
+            opacity: 1; pointer-events: auto;
+        }
+        .modal-backdrop {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            position: relative;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 90%; max-width: 800px;
+            max-height: 90vh;
+            border-radius: 1rem;
+            display: flex; flex-direction: column;
+            transform: scale(0.95); transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        #project-modal.open .modal-content { transform: scale(1); }
+        
+        .modal-body {
+            overflow-y: auto; padding: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--card-bg);
+        }
+        .modal-body::-webkit-scrollbar { width: 8px; }
+        .modal-body::-webkit-scrollbar-thumb { background-color: var(--accent-color); border-radius: 4px; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Preloader Removed -->
+    <!-- Modal Container -->
+    <div id="project-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 p-2 bg-black bg-opacity-20 rounded-full">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="modal-body">
+                <h2 id="modal-title" class="text-3xl font-bold mb-6 text-white border-b border-gray-700 pb-4"></h2>
+                <div id="modal-text" class="text-lg space-y-4" style="color: var(--text-secondary); line-height: 1.8;">
+                    <!-- Content injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="main-content">
         <!-- Navigation Bar -->
@@ -208,11 +254,7 @@
                     </div>
                     <div class="md:w-2/3">
                         <p id="about-me-text" class="text-base md:text-lg" style="color: var(--text-secondary); line-height: 1.8;">
-                            Hello! I'm Suvrat, a Mechanical Engineering graduate now pursuing my Master's with a focus on robotics. Everday I strive for excellence, push myself to refine my skills and learn from others through hands-on projects and academic pursuits. I believe that competency drives success.
-                            Right now, my fascination with how machines perceive and interact with the world has me building robotic “eyeballs” at the Safe Robotics Lab. 
-                            I'm always exploring new ideas for personal projects, so I am exploring ideas on developing a product-level coffee grinder that improves the
-                            user experience. Outside of engineering, I’m a coffee nerd experimenting with new pourover recipes and diving deep into fermentation and roasting techniques for light roasts. When I’m not tinkering with robots or brewing 
-                            coffee, you’ll likely find me playing volleyball, climbing, or training.<br><br>
+                            Hello! I'm Suvrat, a Mechanical Engineering graduate now pursuing my Master's with a focus on robotics. Everday I strive for excellence, push myself to refine my skills and learn from others through hands-on projects and academic pursuits. I believe that competency drives success. Right now, my fascination with how machines perceive and interact with the world has me building robotic “eyeballs” at the Safe Robotics Lab. I'm always exploring new ideas for personal projects, so I am exploring ideas on developing a product-level coffee grinder that improves the user experience. Outside of engineering, I’m a coffee nerd experimenting with new pourover recipes and diving deep into fermentation and roasting techniques for light roasts. When I’m not tinkering with robots or brewing coffee, you’ll likely find me playing volleyball, climbing, or training.
                         </p>
                     </div>
                 </div>
@@ -227,7 +269,9 @@
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Compact Hybrid Powerplant</h3>
-                            <p id="project-desc-1" class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">Engineered a 29 lb compact transmission integrating a 50 cc Honda GX50 and 4 kW BLDC motor. Delivers 34 Nm peak torque, 36-mph top speed, and extends e-bike range from 25 to 71 miles. Implemented STM32 controls for seamless mode transitions.</p>
+                            <p id="project-desc-1" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Engineered a 29 lb compact transmission integrating a 50 cc Honda GX50 and 4 kW BLDC motor. Delivers 34 Nm peak torque, 36-mph top speed, and extends e-bike range from 25 to 71 miles. Implemented STM32 controls for seamless mode transitions.</p>
+                            <!-- Blog Trigger Button -->
+                            <button onclick="openProjectModal(1)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
                         <div class="px-6">
                             <div id="model-container-1" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Hybrid_Engine.glb">
@@ -261,11 +305,12 @@
                         </div>
                     </div>
 
-                    <!-- Project 2: RESTORED -->
+                    <!-- Project 2 -->
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Robotics Competition Robot</h3>
-                            <p id="project-desc-2" class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">Collaborated on a budget-constrained automated robot to place objects in an arena under 30s. Designed a linkage arm for a sub-1s task completion and used Arduino/C++ to control pneumatics, motors, and linear actuators.</p>
+                            <p id="project-desc-2" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Collaborated on a budget-constrained automated robot to place objects in an arena under 30s. Designed a linkage arm for a sub-1s task completion and used Arduino/C++ to control pneumatics, motors, and linear actuators.</p>
+                            <button onclick="openProjectModal(2)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
                         <div class="px-6">
                             <div id="model-container-2" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/MainAssembly2110.glb">
@@ -297,7 +342,8 @@
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">4x4 IR Controlled Car</h3>
-                            <p id="project-desc-3" class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">Built a proof-of-concept 4x4 car for traction control. The system automatically detected wheel slip and applied brakes, allowing navigation of difficult terrains. Utilized an STM32 microcontroller with various sensors and PID control.</p>
+                            <p id="project-desc-3" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Built a proof-of-concept 4x4 car for traction control. The system automatically detected wheel slip and applied brakes, allowing navigation of difficult terrains. Utilized an STM32 microcontroller with various sensors and PID control.</p>
+                            <button onclick="openProjectModal(3)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
                         <div class="px-6">
                             <div id="model-container-3" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/Car_assembly_vol1.glb">
@@ -329,7 +375,8 @@
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                          <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">Self-Balancing Robot</h3>
-                            <p id="project-desc-4" class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">Designed a two-wheeled self-balancing robot with an Arduino, IMU, and encoders. Implemented two PID-based controllers for pitch and velocity, enabling the robot to move while maintaining balance.</p>
+                            <p id="project-desc-4" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Designed a two-wheeled self-balancing robot with an Arduino, IMU, and encoders. Implemented two PID-based controllers for pitch and velocity, enabling the robot to move while maintaining balance.</p>
+                            <button onclick="openProjectModal(4)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
                         <div class="px-6">
                             <div id="model-container-4" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/robassemb.glb">
@@ -361,7 +408,8 @@
                     <div class="card-bg rounded-lg shadow-2xl overflow-hidden flex flex-col">
                         <div class="p-6 md:p-8">
                             <h3 class="text-xl font-medium">3-RRR Spherical Parallel Manipulator</h3>
-                            <p id="project-desc-5" class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">Designed a 3-DOF spherical parallel manipulator for robotic vision applications.</p>
+                            <p id="project-desc-5" class="mt-2 text-sm md:text-base line-clamp-3" style="color: var(--text-secondary);">Designed a 3-DOF spherical parallel manipulator for robotic vision applications.</p>
+                            <button onclick="openProjectModal(5)" class="text-sm mt-3 font-medium focus:outline-none hover:underline" style="color: var(--accent-color);">Read Full Story &rarr;</button>
                         </div>
                         <div class="p-6 md:p-8">
                             <div id="model-container-5" class="model-container" data-model="https://media.githubusercontent.com/media/suvratjain-great/suvratjain-great.github.io/main/3RRRSPM.glb">
@@ -380,7 +428,6 @@
             <section id="resume" class="py-16 md:py-24 fade-in-section">
                 <h2 class="text-3xl font-medium text-center mb-8">Resume & Experience</h2>
                 <div class="text-center mb-12">
-                     <!-- LINK UPDATED HERE -->
                      <a href="Resume Suvrat Jain Dec1.pdf" download="Suvrat_Jain_Resume.pdf" class="btn-primary inline-flex items-center gap-2 font-medium py-2 px-4 rounded text-sm transition-transform hover:scale-105">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Download Resume
@@ -496,7 +543,6 @@
                 <p class="text-base md:text-lg max-w-2xl mx-auto mb-10" style="color: var(--text-secondary);">
                     I'm currently available for new opportunities. If you have a project in mind or just want to connect, feel free to reach out.
                 </p>
-                <!-- LinkedIn Removed -->
                 <a href="mailto:mastersuvratjain@gmail.com" class="btn-primary inline-block font-semibold py-4 px-10 rounded-lg text-lg break-all">
                     mastersuvratjain@gmail.com
                 </a>
@@ -515,6 +561,99 @@
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+        // --- BLOG CONTENT STORE ---
+        // PASTE YOUR LONG TEXT HERE for each project
+        const projectData = {
+            1: {
+                title: "Compact Hybrid Powerplant",
+                content: `
+                    <p class="mb-4">Engineered a 29 lb compact transmission integrating a 50 cc Honda GX50 and 4 kW BLDC motor. Delivers 34 Nm peak torque, 36-mph top speed, and extends e-bike range from 25 to 71 miles. Implemented STM32 controls for seamless mode transitions.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
+                    <p class="mb-4">Integrating a combustion engine and an electric motor into a single, compact transmission unit for a standard bicycle frame is no small feat. We had to manage heat dissipation from the 4kW motor while ensuring the transmission box remained light enough (under 30 lbs) to not throw off the bike's center of gravity.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
+                    <p class="mb-4">I designed a custom cone-clutch mechanism that allows the rider to switch seamlessly between gas, electric, and hybrid modes. By using an STM32 microcontroller, I was able to implement a custom control algorithm that reads Hall sensor data to match the engine RPM with the motor speed before engaging the clutch, preventing the jerky transitions common in DIY hybrid builds.</p>
+                `
+            },
+            2: {
+                title: "Robotics Competition Robot",
+                content: `
+                    <p class="mb-4">Collaborated on a budget-constrained automated robot to place objects in an arena under 30s. Designed a linkage arm for a sub-1s task completion and used Arduino/C++ to control pneumatics, motors, and linear actuators.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
+                    <p class="mb-4">With a budget of only $100, we had to build a robot capable of autonomous navigation and precise object manipulation. The biggest hurdle was the time constraint: we had 30 seconds to complete the entire course.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
+                    <p class="mb-4">I focused on speed. Instead of a complex multi-joint arm, I designed a specialized 4-bar linkage mechanism driven by high-torque servos. This allowed the robot to grab and dump the game objects in under 1 second, giving us a massive time advantage over teams using slower linear actuators.</p>
+                `
+            },
+            3: {
+                title: "4x4 IR Controlled Car",
+                content: `
+                    <p class="mb-4">Built a proof-of-concept 4x4 car for traction control. The system automatically detected wheel slip and applied brakes, allowing navigation of difficult terrains. Utilized an STM32 microcontroller with various sensors and PID control.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
+                    <p class="mb-4">Simulating traction control on a small scale requires incredibly fast sensor feedback. Standard hobby motors often lack the encoder resolution needed to detect micro-slips before the car loses traction completely.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
+                    <p class="mb-4">I implemented a custom PID control loop on an STM32 chip. By comparing the expected speed (from throttle input) vs. actual wheel speed (from encoders) every few milliseconds, the system could detect slip almost instantly. It would then pulse the brakes on the slipping wheel, transferring torque to the wheels with grip—mimicking a real car's limited-slip differential.</p>
+                `
+            },
+            4: {
+                title: "Self-Balancing Robot",
+                content: `
+                    <p class="mb-4">Designed a two-wheeled self-balancing robot with an Arduino, IMU, and encoders. Implemented two PID-based controllers for pitch and velocity, enabling the robot to move while maintaining balance.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
+                    <p class="mb-4">A classic inverted pendulum problem. The difficulty lies in tuning the PID controller. If the response is too aggressive, the robot oscillates and falls. If it's too slow, it can't recover from a push.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
+                    <p class="mb-4">I used a cascade control system. The inner loop controlled the pitch (balance) running at a very high frequency, while the outer loop controlled the velocity (position). This decoupling allowed the robot to lean forward to accelerate without falling over.</p>
+                `
+            },
+            5: {
+                title: "3-RRR Spherical Parallel Manipulator",
+                content: `
+                    <p class="mb-4">Designed a 3-DOF spherical parallel manipulator for robotic vision applications.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">The Challenge</h4>
+                    <p class="mb-4">Parallel manipulators are notorious for their complex kinematics. Unlike serial arms, the movement of one actuator affects the position of the entire end-effector in non-intuitive ways.</p>
+                    <h4 class="text-xl font-bold text-white mt-6 mb-3">My Solution</h4>
+                    <p class="mb-4">I modeled the entire system in MATLAB before cutting a single piece of metal. By solving the inverse kinematics equations first, I could optimize the link lengths to maximize the workspace and avoid singularity points where the robot would lock up.</p>
+                `
+            }
+        };
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const closeModal = document.getElementById('close-modal');
+        
+        // Expose function to window so HTML buttons can call it
+        window.openProjectModal = function(id) {
+            const data = projectData[id];
+            if(data) {
+                modalTitle.innerText = data.title;
+                modalText.innerHTML = data.content;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function hideModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        closeModal.addEventListener('click', hideModal);
+        
+        // Close on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
+                hideModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
+                hideModal();
+            }
+        });
+
         // --- Mobile Menu Logic ---
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -524,7 +663,6 @@
             btn.addEventListener('click', () => {
                 menu.classList.toggle('open');
             });
-            // Close menu when clicking a link
             links.forEach(link => {
                 link.addEventListener('click', () => {
                     menu.classList.remove('open');
@@ -587,7 +725,6 @@
             }
             animate();
             
-            // Handle Resize
             window.addEventListener('resize', () => {
                 const width = container.clientWidth;
                 const height = container.clientHeight;
@@ -597,7 +734,6 @@
             });
         }
 
-        // Setup Event Listeners for "Load Model" buttons
         document.querySelectorAll('.model-container').forEach(container => {
             const overlay = container.querySelector('.load-model-overlay');
             const modelUrl = container.dataset.model;
@@ -605,11 +741,8 @@
 
             if (overlay && modelUrl) {
                 overlay.addEventListener('click', () => {
-                    // Show loading state
                     overlay.innerHTML = '<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>';
-                    // Initialize viewer
                     initViewer(id, modelUrl);
-                    // Fade out overlay
                     setTimeout(() => {
                         overlay.style.opacity = '0';
                         overlay.style.pointerEvents = 'none';
@@ -619,9 +752,6 @@
         });
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Smooth Entry Removed
-
-            // Intersection Observer for Fade-in
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -632,7 +762,6 @@
             
             document.querySelectorAll('.fade-in-section').forEach(s => observer.observe(s));
             
-            // Gallery
             document.querySelectorAll('.gallery-container').forEach(container => {
                 const track = container.querySelector('.gallery-track');
                 const nextBtn = container.querySelector('.gallery-next-btn');
@@ -650,4 +779,3 @@
     </script>
 </body>
 </html>
-
