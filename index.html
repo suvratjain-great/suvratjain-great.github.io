@@ -637,7 +637,7 @@
                 `
             },
             6: {
-                title: "Asymmetric Stereo Camera (Project Eyeball)",
+                title: "Project Eyeball",
                 content: `
                     <p class="mb-4">This project implements a biomimetic active vision system that mimics human foveation to estimate depth for a region of interest in real time without LiDAR or RGB-D cameras. Instead of dense pixel disparity, the system physically rotates two independently actuated cameras on 2-DOF gimbals to converge on a detected target (via YOLOv8), and computes depth directly from motor angles using vergence geometry. A Teensy 4.0 handles low-latency motor control and sensing, while calibration, outlier rejection, and Kalman filtering stabilize depth estimates for moving objects, demonstrating accurate, low-compute depth perception driven by mechanical control rather than heavy vision processing .</p>
                     <h4 class="text-xl font-bold text-white mt-6 mb-3">Future work</h4>
@@ -813,3 +813,4 @@
     </script>
 </body>
 </html>
+
